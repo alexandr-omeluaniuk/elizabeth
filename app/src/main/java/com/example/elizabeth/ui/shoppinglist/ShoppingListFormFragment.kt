@@ -23,7 +23,7 @@ class ShoppingListFormFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentShoppingListFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
         viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
@@ -31,6 +31,7 @@ class ShoppingListFormFragment : Fragment() {
 //            binding.name.setText(it.name)
 //        })
         binding.vm = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return root
     }
 
@@ -41,6 +42,6 @@ class ShoppingListFormFragment : Fragment() {
 
     private fun validate(): Boolean {
         val name = binding.name.text
-        return true;
+        return true
     }
 }
