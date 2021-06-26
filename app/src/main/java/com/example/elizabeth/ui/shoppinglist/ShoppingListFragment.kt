@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.example.elizabeth.R
 import com.example.elizabeth.databinding.FragmentShoppingListsBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -30,8 +32,7 @@ class ShoppingListFragment : Fragment() {
         val root: View = binding.root
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            view.findNavController().navigate(R.id.nav_shopping_list_form)
         }
         return root
     }
