@@ -12,10 +12,19 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.elizabeth.ui.gallery.ShoppingListFragment"
+        android:id="@+id/nav_shopping_lists"
+        android:name="com.example.elizabeth.ui.shoppinglist.ShoppingListFragment"
         android:label="@string/menu_shopping_lists"
-        tools:layout="@layout/fragment_shopping_lists" />
+        tools:layout="@layout/fragment_shopping_lists" >
+        <action
+            android:id="@+id/action_nav_shopping_lists_to_nav_shopping_list_form"
+            app:destination="@id/nav_shopping_list_form" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_shopping_list_form"
+        android:name="com.example.elizabeth.ui.shoppinglist.ShoppingListFormFragment"
+        tools:layout="@layout/fragment_shopping_list_form" />
 
     <fragment
         android:id="@+id/nav_slideshow"

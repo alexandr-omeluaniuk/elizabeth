@@ -1,4 +1,4 @@
-package com.example.elizabeth.ui.gallery
+package com.example.elizabeth.ui.shoppinglist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
