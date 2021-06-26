@@ -10,4 +10,8 @@ class ShoppingListFormViewModel : ViewModel() {
         value = ShoppingList("");
     }
     val list: LiveData<ShoppingList> = _list
+
+    fun onSave() {
+
+    }
 }
