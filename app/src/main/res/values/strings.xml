@@ -10,4 +10,5 @@
     <string name="menu_home">Главная</string>
     <string name="menu_shopping_lists">Списки в магазин</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="shopping_list_form_name">Название</string>
 </resources>
