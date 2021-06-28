@@ -29,9 +29,11 @@ class ShoppingListFormFragment : Fragment() {
         _binding = FragmentShoppingListFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
         viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
-//        viewModel.list.observe(viewLifecycleOwner, Observer {
-//            binding.name.setText(it.name)
-//        })
+        viewModel.list.observe(viewLifecycleOwner, Observer {
+            System.out.println("-> " + it.name);
+            binding.name.setText(it.name)
+            binding.name.error = if (!it.name.isEmpty()) null else "Required"
+        })
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return root
