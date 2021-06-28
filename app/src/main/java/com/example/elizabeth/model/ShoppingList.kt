@@ -1,5 +1,10 @@
 package com.example.elizabeth.model
 
-class ShoppingList(name: String) {
-    val name = name;
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.ObservableField
+
+class ShoppingList(name: String) : BaseObservable() {
+    @Bindable
+    val name: ObservableField<String> = ObservableField(name);
 }

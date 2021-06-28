@@ -31,8 +31,8 @@ class ShoppingListFormFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
         viewModel.list.observe(viewLifecycleOwner, Observer {
             System.out.println("-> " + it.name);
-            binding.name.setText(it.name)
-            binding.name.error = if (!it.name.isEmpty()) null else "Required"
+//            binding.name.setText(it.name)
+//            binding.name.error = if (!it.name.isEmpty()) null else "Required"
         })
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
