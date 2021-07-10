@@ -7,14 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.ViewModelProvider
 import com.example.elizabeth.R
+import com.example.elizabeth.database.AppDatabase
 import com.example.elizabeth.databinding.FragmentShoppingListFormBinding
+import com.example.elizabeth.entity.ShoppingListEntity
 import com.example.elizabeth.model.ShoppingList
 
 class ShoppingListFormFragment : Fragment() {
-    private lateinit var viewModel: ShoppingListFormViewModel
+    private val viewModel: ShoppingListFormViewModel by viewModels()
     private var _binding: FragmentShoppingListFormBinding? = null
 
     // This property is only valid between onCreateView and
@@ -28,7 +32,6 @@ class ShoppingListFormFragment : Fragment() {
     ): View {
         _binding = FragmentShoppingListFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
         viewModel.list.observe(viewLifecycleOwner, Observer(fun(it: ShoppingList) {
             binding.name.error = if (it.name.isNotEmpty()) null
                     else context?.resources?.getString(R.string.required_field)
@@ -54,5 +57,4 @@ class ShoppingListFormFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
