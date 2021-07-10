@@ -1,15 +1,17 @@
 package com.example.elizabeth.ui.shoppinglist
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.elizabeth.model.ShoppingList
-import com.example.elizabeth.util.ObservableViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ShoppingListFormViewModel : ViewModel() {
     val list: MutableLiveData<ShoppingList> by lazy {
-        MutableLiveData<ShoppingList>(ShoppingList(""))
+        MutableLiveData<ShoppingList>(ShoppingList(
+            SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Date())
+        ))
     }
     val valid = MediatorLiveData<Boolean>().apply {
         addSource(list) {
@@ -18,7 +20,7 @@ class ShoppingListFormViewModel : ViewModel() {
     }
 
     fun onSave() {
-        System.out.println("SAVE: " + list.value?.name);
+        System.out.println("SAVE: " + list.value?.name)
     }
 
 }

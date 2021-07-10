@@ -10,9 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.elizabeth.databinding.FragmentShoppingListFormBinding
-import com.example.elizabeth.databinding.FragmentShoppingListsBinding
 import com.example.elizabeth.model.ShoppingList
-import com.google.android.material.snackbar.Snackbar
 
 class ShoppingListFormFragment : Fragment() {
     private lateinit var viewModel: ShoppingListFormViewModel
@@ -30,11 +28,9 @@ class ShoppingListFormFragment : Fragment() {
         _binding = FragmentShoppingListFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
         viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
-        viewModel.list.observe(viewLifecycleOwner, Observer {
-            System.out.println("-> " + it.name.get());
-            val n = it.name.get()
-            binding.name.error = if (n != null && n.isNotEmpty()) null else "Required"
-        })
+        viewModel.list.observe(viewLifecycleOwner, Observer(fun(it: ShoppingList) {
+            binding.name.error = if (it.name.isNotEmpty()) null else "Required"
+        }))
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         // listeners
@@ -43,7 +39,7 @@ class ShoppingListFormFragment : Fragment() {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val list = viewModel.list.getValue()
-                list?.name?.set(s.toString())
+                list?.name = s.toString()
                 viewModel.list.setValue(list)
             }
             override fun afterTextChanged(s: Editable?) {
