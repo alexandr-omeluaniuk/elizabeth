@@ -9,13 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.SavedStateViewModelFactory
-import androidx.lifecycle.ViewModelProvider
 import com.example.elizabeth.R
-import com.example.elizabeth.database.AppDatabase
 import com.example.elizabeth.databinding.FragmentShoppingListFormBinding
-import com.example.elizabeth.entity.ShoppingListEntity
-import com.example.elizabeth.model.ShoppingList
+import com.example.elizabeth.entity.ShoppingList
 
 class ShoppingListFormFragment : Fragment() {
     private val viewModel: ShoppingListFormViewModel by viewModels()
@@ -43,7 +39,7 @@ class ShoppingListFormFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val list = viewModel.list.getValue()
+                val list = viewModel.list.value
                 list?.name = s.toString()
                 viewModel.list.setValue(list)
             }
