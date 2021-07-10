@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.elizabeth.dao.ShoppingListDao
 import com.example.elizabeth.entity.ShoppingList
 
-@Database(entities = arrayOf(ShoppingList::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(ShoppingList::class), version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun shoppingListDao(): ShoppingListDao
 
@@ -27,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(
                 context, AppDatabase::class.java, "database-name"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
         }
     }
 }

@@ -1,16 +1,19 @@
 package com.example.elizabeth.ui.shoppinglist
 
+import android.app.Application
 import androidx.lifecycle.*
+import com.example.elizabeth.database.AppDatabase
 import com.example.elizabeth.entity.ShoppingList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ShoppingListFormViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+class ShoppingListFormViewModel(application: Application) : AndroidViewModel(application) {
     val list: MutableLiveData<ShoppingList> by lazy {
         MutableLiveData<ShoppingList>(ShoppingList(0,
-            "Новый список от "
-                    + SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Date())
-        )
+            "Новый список от " + SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Date())
+            )
         )
     }
     val valid = MediatorLiveData<Boolean>().apply {
@@ -20,10 +23,12 @@ class ShoppingListFormViewModel(savedStateHandle: SavedStateHandle) : ViewModel(
     }
 
     fun onSave() {
-        System.out.println("SAVE: " + list.value?.name)
-//        val context = viewModelScope.coroutineContext;
-//        if (context != null) {
-//            AppDatabase.getInstance(context).shoppingListDao().insert(entity);
-//        }
+        val shoppingList = list.value
+        if (shoppingList != null) {
+            System.out.println("SAVE: " + list.value?.name)
+            viewModelScope.launch(Dispatchers.IO) {
+                AppDatabase.getInstance(getApplication()).shoppingListDao().insert(shoppingList)
+            }
+        }
     }
 }

@@ -28,10 +28,6 @@ class ShoppingListFormFragment : Fragment() {
     ): View {
         _binding = FragmentShoppingListFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        viewModel.list.observe(viewLifecycleOwner, Observer(fun(it: ShoppingList) {
-            binding.name.error = if (it.name.isNotEmpty()) null
-                    else context?.resources?.getString(R.string.required_field)
-        }))
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         // listeners
@@ -46,6 +42,11 @@ class ShoppingListFormFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
+        // observers
+        viewModel.list.observe(viewLifecycleOwner, Observer(fun(it: ShoppingList) {
+            binding.name.error = if (it.name.isNotEmpty()) null
+            else context?.resources?.getString(R.string.required_field)
+        }))
         return root
     }
 
