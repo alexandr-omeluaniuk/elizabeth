@@ -10,7 +10,8 @@ import java.util.*
 class ShoppingListFormViewModel : ViewModel() {
     val list: MutableLiveData<ShoppingList> by lazy {
         MutableLiveData<ShoppingList>(ShoppingList(
-            SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Date())
+            "Новый список от "
+                    + SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).format(Date())
         ))
     }
     val valid = MediatorLiveData<Boolean>().apply {

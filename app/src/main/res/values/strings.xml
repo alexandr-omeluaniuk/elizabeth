@@ -12,4 +12,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="shopping_list_form_name">Название<font color='#FF0000'>*</font></string>
     <string name="save_shopping_list">Save shopping list</string>
+
+    <string name="required_field">Обязательное поле</string>
 </resources>

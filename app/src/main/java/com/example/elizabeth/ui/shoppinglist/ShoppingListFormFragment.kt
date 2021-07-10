@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.elizabeth.R
 import com.example.elizabeth.databinding.FragmentShoppingListFormBinding
 import com.example.elizabeth.model.ShoppingList
 
@@ -29,7 +30,8 @@ class ShoppingListFormFragment : Fragment() {
         val root: View = binding.root
         viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
         viewModel.list.observe(viewLifecycleOwner, Observer(fun(it: ShoppingList) {
-            binding.name.error = if (it.name.isNotEmpty()) null else "Required"
+            binding.name.error = if (it.name.isNotEmpty()) null
+                    else context?.resources?.getString(R.string.required_field)
         }))
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
