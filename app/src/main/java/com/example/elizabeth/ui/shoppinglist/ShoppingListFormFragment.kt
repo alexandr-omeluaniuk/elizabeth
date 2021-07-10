@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.elizabeth.databinding.FragmentShoppingListFormBinding
 import com.example.elizabeth.databinding.FragmentShoppingListsBinding
+import com.example.elizabeth.model.ShoppingList
 import com.google.android.material.snackbar.Snackbar
 
 class ShoppingListFormFragment : Fragment() {
@@ -29,13 +30,22 @@ class ShoppingListFormFragment : Fragment() {
         _binding = FragmentShoppingListFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
         viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
-        viewModel.list.observe(viewLifecycleOwner, Observer {
-            System.out.println("-> " + it.name);
-//            binding.name.setText(it.name)
-//            binding.name.error = if (!it.name.isEmpty()) null else "Required"
-        })
+//        viewModel.list.observe(viewLifecycleOwner, Observer {
+//            System.out.println("-> " + it);
+////            binding.name.setText(it.name)
+////            binding.name.error = if (!it.name.isEmpty()) null else "Required"
+//        })
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.name.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.list.setValue(ShoppingList(s.toString()))
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
         return root
     }
 
@@ -44,8 +54,4 @@ class ShoppingListFormFragment : Fragment() {
         _binding = null
     }
 
-    private fun validate(): Boolean {
-        val name = binding.name.text
-        return true
-    }
 }

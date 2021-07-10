@@ -5,12 +5,13 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.elizabeth.model.ShoppingList
+import com.example.elizabeth.util.ObservableViewModel
 
-class ShoppingListFormViewModel() : ViewModel() {
-    private val _list = MutableLiveData<ShoppingList>().apply {
-        value = ShoppingList("");
+class ShoppingListFormViewModel : ObservableViewModel() {
+    private val _list: MutableLiveData<ShoppingList> by lazy {
+        MutableLiveData<ShoppingList>(ShoppingList(""))
     }
-    val list: LiveData<ShoppingList> = _list
+    val list: MutableLiveData<ShoppingList> = _list
     val valid = MediatorLiveData<Boolean>().apply {
         addSource(list) {
             System.out.println("FIRE");

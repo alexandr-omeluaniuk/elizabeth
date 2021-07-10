@@ -20,6 +20,12 @@
             android:padding="16dp"
             android:orientation="vertical">
 
+            <!--EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={vm.list.name}" /-->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
