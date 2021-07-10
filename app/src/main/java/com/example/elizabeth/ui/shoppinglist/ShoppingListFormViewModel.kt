@@ -7,28 +7,18 @@ import androidx.lifecycle.ViewModel
 import com.example.elizabeth.model.ShoppingList
 import com.example.elizabeth.util.ObservableViewModel
 
-class ShoppingListFormViewModel : ObservableViewModel() {
-    private val _list: MutableLiveData<ShoppingList> by lazy {
+class ShoppingListFormViewModel : ViewModel() {
+    val list: MutableLiveData<ShoppingList> by lazy {
         MutableLiveData<ShoppingList>(ShoppingList(""))
     }
-    val list: MutableLiveData<ShoppingList> = _list
     val valid = MediatorLiveData<Boolean>().apply {
         addSource(list) {
-            System.out.println("FIRE");
-            value = false
+            value = list.value?.isValid()
         }
-    }
-
-    fun validation(): Boolean {
-        var passed = true;
-
-        return passed;
     }
 
     fun onSave() {
-        if (validation()) {
-            System.out.println("SAVE: " + list.value?.name);
-        }
+        System.out.println("SAVE: " + list.value?.name);
     }
 
 }

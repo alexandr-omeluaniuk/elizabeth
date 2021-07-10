@@ -30,18 +30,21 @@ class ShoppingListFormFragment : Fragment() {
         _binding = FragmentShoppingListFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
         viewModel = ViewModelProvider(this).get(ShoppingListFormViewModel::class.java)
-//        viewModel.list.observe(viewLifecycleOwner, Observer {
-//            System.out.println("-> " + it);
-////            binding.name.setText(it.name)
-////            binding.name.error = if (!it.name.isEmpty()) null else "Required"
-//        })
+        viewModel.list.observe(viewLifecycleOwner, Observer {
+            System.out.println("-> " + it.name.get());
+            val n = it.name.get()
+            binding.name.error = if (n != null && n.isNotEmpty()) null else "Required"
+        })
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        // listeners
         binding.name.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.list.setValue(ShoppingList(s.toString()))
+                val list = viewModel.list.getValue()
+                list?.name?.set(s.toString())
+                viewModel.list.setValue(list)
             }
             override fun afterTextChanged(s: Editable?) {
             }
